@@ -18,7 +18,6 @@ def add_chunks(chunks: list[str], embeddings: list[list[float]], source_name: st
         metadatas=metadatas,
     )
 
-
 def search_chunks(query_embedding: list[float], n_results: int = 4):
     results = collection.query(
         query_embeddings=[query_embedding],
@@ -27,3 +26,7 @@ def search_chunks(query_embedding: list[float], n_results: int = 4):
     documents = results["documents"][0]
     metadatas = results["metadatas"][0]
     return documents, metadatas
+
+def is_already_ingested(source_name: str) -> bool:
+    existing = collection.get(where={"source": source_name}, limit=1)
+    return len(existing["ids"]) > 0
