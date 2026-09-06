@@ -24,15 +24,22 @@ def ingest_folder(folder_path: str):
     for source_name, text in documents:
         ingest_document(text, source_name)
         
-def rag_query(query: str):
+def get_answer(query: str) -> dict:
     query_embedding = embed_texts([query])[0]
     chunks, metadatas = search_chunks(query_embedding, n_results=4)
-
     answer = generate_answer(query, chunks)
+    
+    sources = [
+        {"source": meta["source"], "chunk_index": meta["chunk_index"]}
+        for meta in metadatas
+    ]
+    return {"answer": answer, "sources": sources}
 
-    print("\nJawaban:\n", answer)
+def rag_query(query: str):
+    result = get_answer(query)
+    print("\nJawaban:\n", result["answer"])
     print("\nSumber yang dipakai:")
-    for meta in metadatas:
+    for meta in result["sources"]:
         print(f"  - {meta['source']} (chunk #{meta['chunk_index']})")
 
 if __name__ == "__main__":
