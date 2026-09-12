@@ -15,3 +15,7 @@ def split_into_sentences(text: str) -> list[str]:
     # Potong di titik/tanda tanya/tanda seru yang diikuti spasi atau baris baru
     sentences = re.split(r"(?<=[.!?])\s+", text.strip())
     return [s.strip() for s in sentences if s.strip()]
+
+def split_into_paragraphs(text: str) -> list[str]:
+    paragraphs = re.split(r"\n\s*\n", text.strip())
+    return [p.strip() for p in paragraphs if p.strip()]
