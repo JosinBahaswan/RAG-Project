@@ -1,4 +1,4 @@
-from chunking import chunk_text
+from chunking import semantic_chunk
 from embeddings import embed_texts
 from vector_store import add_chunks, search_chunks, is_already_ingested
 from generation import generate_answer
@@ -9,7 +9,7 @@ def ingest_document(text: str, source_name: str):
         print(f"Lewati '{source_name}', sudah pernah di-ingest sebelumnya.")
         return
     
-    chunks = chunk_text(text)
+    chunks = semantic_chunk(text)
     embeddings = embed_texts(chunks)
     add_chunks(chunks, embeddings, source_name)
     print(f"Ingested {len(chunks)} chunk dari '{source_name}'")
