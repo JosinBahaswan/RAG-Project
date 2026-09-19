@@ -11,5 +11,9 @@ HEADERS = {
     "Content-Type": "application/json",
 }
 
-CHAT_MODEL = "nvidia/nemotron-3.5-lightning:free"   # sebelumnya: "minimax/minimax-m3:free"          # model untuk generate jawaban
+CHAT_MODELS = [
+    "nvidia/nemotron-3.5-lightning:free",
+    "thinkingmachines/inkling-small:free",
+    "nex-agi/nex-n2.5-pro:free",
+]   # sebelumnya: "minimax/minimax-m3:free"          # model untuk generate jawaban
 EMBED_MODEL = "openai/text-embedding-3-small"    # model untuk embedding
